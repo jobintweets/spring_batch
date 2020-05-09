@@ -30,23 +30,23 @@ public class SpringBatchApplication {
   @Autowired
   private StepBuilderFactory stepBuilderFactory;
 
-  @Bean
-  public Job job() {
-    return this.jobBuilderFactory.get("basic_batch_job_without_param")
-      .start(step1())
-//      .validator(validatorFunction())
-//      .incrementer(new RunIdIncrementer())
-      .incrementer(new CustomDateIncrementer())
-      .build();
-  }
-
-
-  @Bean
-  public Step step1() {
-    return this.stepBuilderFactory.get("step3")
-      .tasklet(new HelloTasklet())
-      .build();
-  }
+//  @Bean
+//  public Job job() {
+//    return this.jobBuilderFactory.get("basic_batch_job_without_param")
+//      .start(step1())
+////      .validator(validatorFunction())
+////      .incrementer(new RunIdIncrementer())
+//      .incrementer(new CustomDateIncrementer())
+//      .build();
+//  }
+//
+//
+//  @Bean
+//  public Step step1() {
+//    return this.stepBuilderFactory.get("step3")
+//      .tasklet(new HelloTasklet())
+//      .build();
+//  }
 
 
 
@@ -92,6 +92,8 @@ public class SpringBatchApplication {
 
   public static void main(String[] args) {
     SpringApplication.run(SpringBatchApplication.class, args);
+    ChunkJob chunkJob = new ChunkJob();
+    chunkJob.chunkBasedJob();
   }
 
 }
