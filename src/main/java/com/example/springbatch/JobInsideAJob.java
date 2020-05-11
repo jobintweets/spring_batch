@@ -4,6 +4,9 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.builder.FlowBuilder;
+import org.springframework.batch.core.job.flow.Flow;
+import org.springframework.batch.core.job.flow.FlowStep;
 import org.springframework.batch.core.step.job.DefaultJobParametersExtractor;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
@@ -85,6 +88,17 @@ public class JobInsideAJob {
       .build();
   }
 
+  /***
+   *
+   * @Bean this bean is used for the FlowStep
+   */
+//  @Bean
+//  public Step intializeBatch() {
+//    return this.stepBuilderFactory.get("initalizeBatch")
+//      .flow(preProcessingFlow())
+//      .build();
+//  }
+
   @Bean
   public Step loadFileStep() {
     return this.stepBuilderFactory.get("loadFileStep").tasklet(loadStockFile())
@@ -108,4 +122,15 @@ public class JobInsideAJob {
     return this.stepBuilderFactory.get("runBatch").tasklet(runBatchTasklet())
       .build();
   }
+
+//  Using a FlowStep allows you to see the impact of the flow as a whole
+//  instead of having to aggregate the individual steps.
+  @Bean
+  public Flow preProcessingFlow() {
+    return new FlowBuilder<Flow>("preProcessingFlow")
+      .start(loadFileStep())
+      .next(loadCustomerStep())
+      .next(updateStartStep()).build();
+  }
+
 }
