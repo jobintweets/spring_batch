@@ -92,8 +92,10 @@ public class SpringBatchApplication {
 
   public static void main(String[] args) {
     SpringApplication.run(SpringBatchApplication.class, args);
-    ChunkJob chunkJob = new ChunkJob();
-    chunkJob.chunkBasedJob();
+//    ChunkJob chunkJob = new ChunkJob();
+//    chunkJob.chunkBasedJob();
+    ConditionalJob conditionalJob = new ConditionalJob();
+    conditionalJob.job();
   }
 
 }
