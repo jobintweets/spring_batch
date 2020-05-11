@@ -1,14 +1,11 @@
 package com.example.springbatch;
 
-import org.springframework.batch.core.JobParametersValidator;
-import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.CompositeJobParametersValidator;
 import org.springframework.batch.core.job.DefaultJobParametersValidator;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.batch.core.Job;
 
 import java.util.Arrays;
 
@@ -96,8 +92,10 @@ public class SpringBatchApplication {
 //    chunkJob.chunkBasedJob();
 //    ConditionalJob conditionalJob = new ConditionalJob();
 //    conditionalJob.job();
-    JobInsideAJob jobInsideAJob = new JobInsideAJob();
-    jobInsideAJob.conditionalStepLogicJob();
+//    JobInsideAJob jobInsideAJob = new JobInsideAJob();
+//    jobInsideAJob.conditionalStepLogicJob();
+    JobExplorer1 jobExplorer1 = new JobExplorer1();
+    jobExplorer1.explorerJob();
   }
 
 }
