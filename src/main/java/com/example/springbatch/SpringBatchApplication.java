@@ -94,8 +94,10 @@ public class SpringBatchApplication {
     SpringApplication.run(SpringBatchApplication.class, args);
 //    ChunkJob chunkJob = new ChunkJob();
 //    chunkJob.chunkBasedJob();
-    ConditionalJob conditionalJob = new ConditionalJob();
-    conditionalJob.job();
+//    ConditionalJob conditionalJob = new ConditionalJob();
+//    conditionalJob.job();
+    JobInsideAJob jobInsideAJob = new JobInsideAJob();
+    jobInsideAJob.conditionalStepLogicJob();
   }
 
 }

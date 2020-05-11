@@ -19,10 +19,14 @@ public class ConditionalJob {
 
   @Bean
   public Job job() {
-    return this.jobBuilderFactory.get("conditionalJob1")
+    return this.jobBuilderFactory.get("conditionalJob2")
       .start(firstStep())
       .on("FAILED")
-      .to(failureStep())
+//      .end() // when the step has failed end the job
+      .fail()
+//    For the failed state, which allows you to rerun the job with the same parameters
+//      .on("FAILED").stopAndRestart(successStep())
+//      .to(failureStep())
       .from(firstStep()).on("*")
       .to(successStep())
       .end()
@@ -39,8 +43,8 @@ public class ConditionalJob {
   @Bean
   public Tasklet passTasklet() {
     return (contribution, chunkContext) -> {
-//      return RepeatStatus.FINISHED;
-			throw new RuntimeException("Causing a failure");
+      return RepeatStatus.FINISHED;
+//      throw new RuntimeException("Causing a failure");
     };
   }
 
