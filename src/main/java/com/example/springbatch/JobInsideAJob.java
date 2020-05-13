@@ -27,7 +27,7 @@ public class JobInsideAJob {
   @Autowired
   private StepBuilderFactory stepBuilderFactory;
 
-  @Bean
+//  @Bean
   public Tasklet loadStockFile() {
     return (contribution, chunkContext) -> {
       System.out.println("The stock file has been loaded");
@@ -35,7 +35,7 @@ public class JobInsideAJob {
     };
   }
 
-  @Bean
+//  @Bean
   public Tasklet loadCustomerFile() {
     return (contribution, chunkContext) -> {
       System.out.println("The customer file has been loaded");
@@ -43,7 +43,7 @@ public class JobInsideAJob {
     };
   }
 
-  @Bean
+//  @Bean
   public Tasklet updateStart() {
     return (contribution, chunkContext) -> {
       System.out.println("The start has been updated");
@@ -51,7 +51,7 @@ public class JobInsideAJob {
     };
   }
 
-  @Bean
+//  @Bean
   public Tasklet runBatchTasklet() {
     return (contribution, chunkContext) -> {
       System.out.println("The batch has been run");
@@ -59,7 +59,7 @@ public class JobInsideAJob {
     };
   }
 
-  @Bean
+//  @Bean
   public Job preProcessingJob() {
     return this.jobBuilderFactory.get("preProcessingJob")
       .start(loadFileStep())
@@ -68,7 +68,7 @@ public class JobInsideAJob {
       .build();
   }
 
-  @Bean
+//  @Bean
   public Job conditionalStepLogicJob() {
     return this.jobBuilderFactory.get("conditionalStepLogicJob")
       .start(intializeBatch())
@@ -76,7 +76,7 @@ public class JobInsideAJob {
       .build();
   }
 
-  @Bean
+//  @Bean
   public Step intializeBatch() {
     return this.stepBuilderFactory.get("initalizeBatch")
       //calling a job form the step
@@ -99,25 +99,25 @@ public class JobInsideAJob {
 //      .build();
 //  }
 
-  @Bean
+//  @Bean
   public Step loadFileStep() {
     return this.stepBuilderFactory.get("loadFileStep").tasklet(loadStockFile())
       .build();
   }
 
-  @Bean
+//  @Bean
   public Step loadCustomerStep() {
     return this.stepBuilderFactory.get("loadCustomerStep").tasklet(loadCustomerFile())
       .build();
   }
 
-  @Bean
+//  @Bean
   public Step updateStartStep() {
     return this.stepBuilderFactory.get("updateStartStep").tasklet(updateStart())
       .build();
   }
 
-  @Bean
+//  @Bean
   public Step runBatch() {
     return this.stepBuilderFactory.get("runBatch").tasklet(runBatchTasklet())
       .build();
@@ -125,7 +125,7 @@ public class JobInsideAJob {
 
 //  Using a FlowStep allows you to see the impact of the flow as a whole
 //  instead of having to aggregate the individual steps.
-  @Bean
+//  @Bean
   public Flow preProcessingFlow() {
     return new FlowBuilder<Flow>("preProcessingFlow")
       .start(loadFileStep())

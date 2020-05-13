@@ -24,14 +24,14 @@ public class ChunkJob {
   @Autowired
   private StepBuilderFactory stepBuilderFactory;
 
-  @Bean
+//  @Bean
   public Job chunkBasedJob() {
     return this.jobBuilderFactory.get("chunkBasedJob")
       .start(chunkStep())
       .build();
   }
 
-  @Bean
+//  @Bean
   public Step chunkStep() {
     return this.stepBuilderFactory.get("chunkStep500")
       .<String, String>chunk(100)
@@ -40,7 +40,7 @@ public class ChunkJob {
       .build();
   }
 
-  @Bean
+//  @Bean
   public ListItemReader<String> itemReader() {
     List<String> items = new ArrayList<>(500);
     for (int i = 0; i < 500; i++) {
@@ -49,7 +49,7 @@ public class ChunkJob {
     return new ListItemReader<>(items);
   }
 
-  @Bean
+//  @Bean
   public ItemWriter<String> itemWriter() {
     return items -> {
       for (String item : items) {

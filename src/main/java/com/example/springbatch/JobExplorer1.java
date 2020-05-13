@@ -22,18 +22,18 @@ public class JobExplorer1 {
   @Autowired
   private JobExplorer jobExplorer;
 
-  @Bean
+//  @Bean
   public Tasklet explorerTasklet() {
     return new ExploringTasklet(this.jobExplorer);
   }
 
-  @Bean
+//  @Bean
   public Step explorerStep() {
     return this.stepBuilderFactory.get("explorerStep")
       .tasklet(explorerTasklet())
       .build();
   }
-  @Bean
+//  @Bean
   public Job explorerJob() {
     return this.jobBuilderFactory.get("explorerJob")
       .start(explorerStep())

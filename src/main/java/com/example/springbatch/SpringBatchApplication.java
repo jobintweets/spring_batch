@@ -91,7 +91,7 @@ public class SpringBatchApplication {
 
   @Bean
   public Job restJob() {
-    return this.jobBuilderFactory.get("rest_job")
+    return this.jobBuilderFactory.get("scheduled_batch_job")
       .incrementer(new RunIdIncrementer())
       .start(step1())
       .build();
@@ -99,7 +99,7 @@ public class SpringBatchApplication {
 
   @Bean
   public Step step1() {
-    return this.stepBuilderFactory.get("rest_step")
+    return this.stepBuilderFactory.get("scheduled_step")
       .tasklet((stepContribution, chunkContext) -> {
       System.out.println("step1 ran today!");
       return RepeatStatus.FINISHED;

@@ -17,7 +17,7 @@ public class ConditionalJob {
   @Autowired
   private StepBuilderFactory stepBuilderFactory;
 
-  @Bean
+//  @Bean
   public Job job() {
     return this.jobBuilderFactory.get("conditionalJob2")
       .start(firstStep())
@@ -33,14 +33,14 @@ public class ConditionalJob {
       .build();
   }
 
-  @Bean
+//  @Bean
   public Step firstStep() {
     return this.stepBuilderFactory.get("firstStep")
       .tasklet(passTasklet())
       .build();
   }
 
-  @Bean
+//  @Bean
   public Tasklet passTasklet() {
     return (contribution, chunkContext) -> {
       return RepeatStatus.FINISHED;
@@ -48,14 +48,14 @@ public class ConditionalJob {
     };
   }
 
-  @Bean
+//  @Bean
   public Step failureStep() {
     return this.stepBuilderFactory.get("failureStep")
       .tasklet(failTasklet())
       .build();
   }
 
-  @Bean
+//  @Bean
   public Tasklet failTasklet() {
     return (contribution, context) -> {
       System.out.println("Failure!");
@@ -63,14 +63,14 @@ public class ConditionalJob {
     };
   }
 
-  @Bean
+//  @Bean
   public Step successStep() {
     return this.stepBuilderFactory.get("successStep")
       .tasklet(successTasklet())
       .build();
   }
 
-  @Bean
+//  @Bean
   public Tasklet successTasklet() {
     return (contribution, context) -> {
       System.out.println("Success!");
