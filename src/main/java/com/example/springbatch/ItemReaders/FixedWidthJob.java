@@ -33,7 +33,7 @@ public class FixedWidthJob {
 
   @Bean
   public Step copyFileStep() {
-    return this.stepBuilderFactory.get("delimited_file")
+    return this.stepBuilderFactory.get("filedSet_mapper_step1")
       .<Customer, Customer>chunk(10)
       .reader(customerItemReader(null))
       .writer(itemWriter())
@@ -42,12 +42,12 @@ public class FixedWidthJob {
 
   @Bean
   public Job job() {
-    return this.jobBuilderFactory.get("delimited_job")
+    return this.jobBuilderFactory.get("custom_fieldSetMapper1")
       .start(copyFileStep())
       .build();
   }
 
-
+  // for fixed length file reading
 //  @Bean
 //  @StepScope
 //  public FlatFileItemReader<Customer> customerItemReader(
@@ -69,7 +69,29 @@ public class FixedWidthJob {
 //      .targetType(Customer.class)
 //      .build();
 //  }
-@Bean
+
+  // for delimited file reading
+//@Bean
+//@StepScope
+//public FlatFileItemReader<Customer> customerItemReader(
+//  @Value("#{jobParameters['customerFile']}") Resource inputFile) {
+//  return new FlatFileItemReaderBuilder<Customer>()
+//    .name("customerItemReader")
+//    .resource(inputFile)
+//    .delimited()
+//    .names(new String[]{"firstName",
+//      "middleInitial",
+//      "lastName",
+//      "addressNumber",
+//      "street",
+//      "city",
+//      "state",
+//      "zipCode"})
+//    .targetType(Customer.class)
+//    .build();
+//}
+
+  @Bean
 @StepScope
 public FlatFileItemReader<Customer> customerItemReader(
   @Value("#{jobParameters['customerFile']}") Resource inputFile) {
@@ -85,7 +107,7 @@ public FlatFileItemReader<Customer> customerItemReader(
       "city",
       "state",
       "zipCode"})
-    .targetType(Customer.class)
+    .fieldSetMapper(new CustomerFieldSetMapper())
     .build();
 }
 
