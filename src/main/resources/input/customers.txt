@@ -1,0 +1,6 @@
+CUST,Clement,A,Blair,1880 Johnstown Road,Wheeling,IL,60090
+CUST,Chana,B,Meyer,3989 Central Avenue,Bayonne,NJ,07002
+CUST,Kay,C,Quinonez,4085 Clarksburg Park Road,Phoenix,AZ,85012
+CUST,Kristen,D,Seibert,2346 Ridenour Street,Miami,FL,33128
+CUST,Lee,E,Troupe,2907 Brown Street,Danville,CA,94526
+CUST,Edgar,F,Christian,740 Poplar Avenue,El Cajon,CA,92020
