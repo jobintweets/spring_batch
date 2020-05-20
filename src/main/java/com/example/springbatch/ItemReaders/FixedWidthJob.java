@@ -9,6 +9,11 @@ import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
+import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
+import org.springframework.batch.item.file.mapping.FieldSetMapper;
+import org.springframework.batch.item.file.mapping.PatternMatchingCompositeLineMapper;
+import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.batch.item.file.transform.LineTokenizer;
 import org.springframework.batch.item.file.transform.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +24,9 @@ import org.springframework.core.io.Resource;
 
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @EnableBatchProcessing
 @SpringBootApplication
@@ -31,9 +38,11 @@ public class FixedWidthJob {
   @Autowired
   private StepBuilderFactory stepBuilderFactory;
 
+  @Autowired
+  private CustomerRepository customerRepository;
   @Bean
   public Step copyFileStep() {
-    return this.stepBuilderFactory.get("filedSet_mapper_step1")
+    return this.stepBuilderFactory.get("filedSet_mapper_step3")
       .<Customer, Customer>chunk(10)
       .reader(customerItemReader(null))
       .writer(itemWriter())
@@ -42,7 +51,7 @@ public class FixedWidthJob {
 
   @Bean
   public Job job() {
-    return this.jobBuilderFactory.get("custom_fieldSetMapper1")
+    return this.jobBuilderFactory.get("custom_fieldSetMapper3")
       .start(copyFileStep())
       .build();
   }
@@ -91,6 +100,7 @@ public class FixedWidthJob {
 //    .build();
 //}
 
+//  used for custom filedSetMapper functionality
   @Bean
 @StepScope
 public FlatFileItemReader<Customer> customerItemReader(
@@ -111,9 +121,13 @@ public FlatFileItemReader<Customer> customerItemReader(
     .build();
 }
 
+
   @Bean
   public ItemWriter<Customer> itemWriter() {
-    return (items) -> items.forEach(System.out::println);
+
+    return (items) ->{
+      items.forEach(System.out::println);
+    } ;
   }
 
 
