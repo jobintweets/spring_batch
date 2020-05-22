@@ -1,0 +1,1 @@
+The JSON document is expected to be a complete JSON document containing a single array of objects. The parsing that the JsonItemReader does is delegated to an implementation of the JsonObjectReader interface. This interface is what does the actual parsing from JSON to an object in a similar manner to how the Unmarshaller parses XML into an object in the StaxEventItemReader.
