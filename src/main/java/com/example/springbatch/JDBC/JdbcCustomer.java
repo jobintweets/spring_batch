@@ -1,55 +1,36 @@
-package com.example.springbatch.ItemReaders;
+package com.example.springbatch.JDBC;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-// for xml mapping
-@XmlRootElement
-public class Customer {
+public class JdbcCustomer {
 
+  private Long id;
   private String firstName;
-
   private String middleInitial;
-
   private String lastName;
-
   private String address;
-
   private String city;
-
   private String state;
-
   private String zipCode;
-
-  private List<CustomerTransaction> transactions;
-
-  @XmlElementWrapper(name = "transactions")
-  @XmlElement(name = "transaction")
-  public void setTransactions(List<CustomerTransaction> transactions) {
-    this.transactions = transactions;
-  }
 
   @Override
   public String toString() {
-    return "Customer{" +
-      "firstName='" + firstName + '\'' +
+    return "JdbcCustomer{" +
+      "id=" + id +
+      ", firstName='" + firstName + '\'' +
       ", middleInitial='" + middleInitial + '\'' +
       ", lastName='" + lastName + '\'' +
       ", address='" + address + '\'' +
       ", city='" + city + '\'' +
       ", state='" + state + '\'' +
       ", zipCode='" + zipCode + '\'' +
-      ", transactions=" + transactions +
       '}';
   }
 }
