@@ -6,13 +6,16 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.ArgumentPreparedStatementSetter;
 
 import javax.sql.DataSource;
 
@@ -32,8 +35,9 @@ public class CursorApproach {
     return new JdbcCursorItemReaderBuilder<JdbcCustomer>()
       .name("customerItemReader")
       .dataSource(dataSource)
-      .sql("select * from customer")
+      .sql("select * from customer  where city = ?")
       .rowMapper(new CustomerRowMapper())
+      .preparedStatementSetter(citySetter(null))
       .build();
   }
   @Bean
@@ -43,12 +47,19 @@ public class CursorApproach {
 
   @Bean
   public Step copyFileStep() {
-    return this.stepBuilderFactory.get("cursor_step")
+    return this.stepBuilderFactory.get("cursor_step1")
       .<JdbcCustomer, JdbcCustomer>chunk(10)
       .reader(customerItemReader(null))
       .writer(itemWriter())
       .build();
   }
+  @Bean
+  @StepScope
+  public ArgumentPreparedStatementSetter citySetter(
+    @Value("#{jobParameters['city']}") String city) {
+    return new ArgumentPreparedStatementSetter(new Object [] {city});
+  }
+
 
   @Bean
   public Job job() {
@@ -58,7 +69,7 @@ public class CursorApproach {
   }
 
   public static void main(String[] args) {
-SpringApplication.run(CursorApproach.class,args);
+SpringApplication.run(CursorApproach.class,"city=Chicago");
   }
 
 }
