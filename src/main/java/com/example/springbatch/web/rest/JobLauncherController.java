@@ -26,7 +26,6 @@ public class JobLauncherController {
   @Autowired
   private JobExplorer jobExplorer;
 
-
   @PostMapping(path = "/run")
   public ExitStatus runJob(@RequestBody JobLauncherBody request) throws Exception {
     Job job = this.context.getBean(request.getJobName(), Job.class);

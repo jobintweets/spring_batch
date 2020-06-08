@@ -1,0 +1,3 @@
+]If we wanted the state to be persisted across restarts, the Validator would also need to implement the ItemStream interface by extending ItemStreamSupport and store those last names in the ExecutionContext with each commit.
+
+. Spring Batch also allows you to put to use the various services you already have developed as ItemProcessors as well by using the org.springframework.batch.item.adapter.ItemProcessorAdapter.
