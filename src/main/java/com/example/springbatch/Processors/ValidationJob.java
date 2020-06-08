@@ -69,15 +69,21 @@ public class ValidationJob {
 //    return new BeanValidatingItemProcessor<>();
 //  }
 
+//  @Bean
+////  ItemProcessorAdapter lets you use existing services as processors for your batch job items.
+//  public ItemProcessorAdapter<ProcessorCustomer, ProcessorCustomer> itemProcessor(UpperCaseNameService service)
+//  {
+//    ItemProcessorAdapter<ProcessorCustomer, ProcessorCustomer> adapter = new ItemProcessorAdapter<>();
+//    adapter.setTargetObject(service);
+//    adapter.setTargetMethod("upperCase");
+//    return adapter;
+//  }
+
   @Bean
-//  ItemProcessorAdapter lets you use existing services as processors for your batch job items.
-  public ItemProcessorAdapter<ProcessorCustomer, ProcessorCustomer> itemProcessor(UpperCaseNameService service)
-  {
-    ItemProcessorAdapter<ProcessorCustomer, ProcessorCustomer> adapter = new ItemProcessorAdapter<>();
-    adapter.setTargetObject(service);
-    adapter.setTargetMethod("upperCase");
-    return adapter;
+  public CustomItemProcessor itemProcessor() {
+    return new CustomItemProcessor();
   }
+
 
   @Bean
 	public Step copyFileStep() {
@@ -85,14 +91,14 @@ public class ValidationJob {
 				.<ProcessorCustomer, ProcessorCustomer>chunk(5)
       .reader(customerItemReader(null))
 //      .processor(customerValidatingItemProcessor())
-      .processor(itemProcessor(null))
+      .processor(itemProcessor())
       .writer(itemWriter())
       .build();
 	}
 
   @Bean
   public Job job() throws Exception {
-    return this.jobBuilderFactory.get("validating_job1") .start(copyFileStep())
+    return this.jobBuilderFactory.get("validating_job2") .start(copyFileStep())
       .build();
   }
 
