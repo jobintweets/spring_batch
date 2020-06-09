@@ -1,8 +1,8 @@
-package com.example.springbatch.JdbcBatchItemWriter;
+package com.example.springbatch.JpaItemWriter;
 
 import com.example.springbatch.ItemReaders.Customer;
-import com.example.springbatch.ItemWriters.FlatfileItemWriterExample;
 import com.example.springbatch.ItemWriters.IWCustomer;
+import com.example.springbatch.JdbcBatchItemWriter.JdbcBatchWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -10,8 +10,7 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.item.database.JdbcBatchItemWriter;
-import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
+import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +20,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 
-import javax.sql.DataSource;
+import javax.persistence.EntityManagerFactory;
 
 @SpringBootApplication
 @EnableBatchProcessing
-public class JdbcBatchWriter {
+public class JpaWriterJob {
 
   @Autowired
   public JobBuilderFactory jobBuilderFactory;
@@ -35,8 +34,8 @@ public class JdbcBatchWriter {
 
   @Bean
   @StepScope
-  public FlatFileItemReader<IWCustomer> customerFileReader(@Value("#{jobParameters['customerFile']}") Resource inputFile) {
-    return new FlatFileItemReaderBuilder<IWCustomer>()
+  public FlatFileItemReader<TestCustomer> customerFileReader(@Value("#{jobParameters['customerFile']}") Resource inputFile) {
+    return new FlatFileItemReaderBuilder<TestCustomer>()
       .name("customerFileReader")
       .resource(inputFile)
       .delimited()
@@ -47,50 +46,35 @@ public class JdbcBatchWriter {
         "city",
         "state",
         "zipCode"})
-      .targetType(IWCustomer.class)
+      .targetType(TestCustomer.class)
       .build();
   }
 
   @Bean
-  @StepScope
-  public JdbcBatchItemWriter<IWCustomer> jdbcCustomerWriter(DataSource dataSource) throws Exception {
-    return new JdbcBatchItemWriterBuilder<IWCustomer>()
-      .dataSource(dataSource)
-      .sql("INSERT INTO IWCUSTOMER (first_name, " + "middle_initial, " +
-        "last_name, " +
-        "address, " +
-        "city, " +
-        "state, " +
-        "zip) VALUES (:firstName," +
-        " :middleInitial," +
-        " :lastName," +
-        " :address, " +
-        ":city, " +
-        ":state, " +
-        ":zipCode)")
-//      .itemPreparedStatementSetter(new CustomerItemPreparedStatementSetter())
-      .beanMapped()
-      .build();
+  public JpaItemWriter<TestCustomer> jpaItemWriter(EntityManagerFactory entityManagerFactory) {
+    JpaItemWriter<TestCustomer> jpaItemWriter = new JpaItemWriter<>();
+    jpaItemWriter.setEntityManagerFactory(entityManagerFactory);
+    return jpaItemWriter;
   }
 
   @Bean
-  public Step formatStep() throws Exception {
-    return this.stepBuilderFactory.get("itemWriter")
-      .<IWCustomer, IWCustomer>chunk(10)
+  public Step jpaFormatStep() {
+    return this.stepBuilderFactory.get("jpaFormatStep")
+      .<TestCustomer, TestCustomer>chunk(10)
       .reader(customerFileReader(null))
-      .writer(jdbcCustomerWriter(null))
+      .writer(jpaItemWriter(null))
       .build();
   }
 
   @Bean
-  public Job formatJob() throws Exception {
-    return this.jobBuilderFactory.get("jdbcItemWriter")
-      .start(formatStep())
+  public Job jpaFormatJob() {
+    return this.jobBuilderFactory.get("jpaFormatJob")
+      .start(jpaFormatStep())
       .incrementer(new RunIdIncrementer())
       .build();
   }
 
   public static void main(String[] args) {
-    SpringApplication.run(JdbcBatchWriter.class, "customerFile=file:/Users/jobingeorge/Desktop/spring-batch/src/main/resources/input/customer.csv");
+    SpringApplication.run(JpaWriterJob.class, "customerFile=file:/Users/jobingeorge/Desktop/spring-batch/src/main/resources/input/customer.csv");
   }
 }
