@@ -31,6 +31,18 @@ CREATE TABLE CUSTOMER
     zipCode       CHAR(5)
 );
 
+CREATE TABLE IWCUSTOMER
+(
+    id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(45) ,
+    middle_initial VARCHAR(1) ,
+    last_name VARCHAR(45) ,
+    address VARCHAR(45) ,
+    city VARCHAR(45) ,
+    state VARCHAR(2) ,
+    zip VARCHAR(5),
+    email VARCHAR(255)
+);
 CREATE TABLE IF NOT EXISTS transaction
 (
     id                 INT           NOT NULL AUTO_INCREMENT,

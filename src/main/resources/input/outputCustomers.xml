@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customers>
+  <customer>
+    <firstName>Richard</firstName>
+    <middleInitial>N</middleInitial>
+    <lastName>Darrow</lastName>
+    <address>5570 Isabella Ave</address>
+    <city>St. Louis</city>
+    <state>IL</state>
+    <zipCode>58540</zipCode>
+  </customer>
+  <customer>
+    <firstName>Warren</firstName>
+    <middleInitial>L</middleInitial>
+    <lastName>Darrow</lastName>
+    <address>4686 Mt. Lee Drive</address>
+    <city>St. Louis</city>
+    <state>NY</state>
+    <zipCode>94935</zipCode>
+  </customer>
+  <customer>
+    <firstName>Barack</firstName>
+    <middleInitial>G</middleInitial>
+    <lastName>Donnelly</lastName>
+    <address>7844 S. Greenwood Ave</address>
+    <city>Houston</city>
+    <state>CA</state>
+    <zipCode>38635</zipCode>
+  </customer>
+  <customer>
+    <firstName>Ann</firstName>
+    <middleInitial>Z</middleInitial>
+    <lastName>Benes</lastName>
+    <address>2447 S. Greenwood Ave</address>
+    <city>Las Vegas</city>
+    <state>NY</state>
+    <zipCode>55366</zipCode>
+  </customer>
+  <customer>
+    <firstName>Erica</firstName>
+    <middleInitial>Z</middleInitial>
+    <lastName>Gates</lastName>
+    <address>3141 Farnam Street</address>
+    <city>Omaha</city>
+    <state>CA</state>
+    <zipCode>57640</zipCode>
+  </customer>
+  <customer>
+    <firstName>Warren</firstName>
+    <middleInitial>M</middleInitial>
+    <lastName>Williams</lastName>
+    <address>6670 S. Greenwood Ave</address>
+    <city>Hollywood</city>
+    <state>FL</state>
+    <zipCode>37288</zipCode>
+  </customer>
+  <customer>
+    <firstName>Harry</firstName>
+    <middleInitial>T</middleInitial>
+    <lastName>Darrow</lastName>
+    <address>3273 Isabella Ave</address>
+    <city>Houston</city>
+    <state>FL</state>
+    <zipCode>97261</zipCode>
+  </customer>
+  <customer>
+    <firstName>Steve</firstName>
+    <middleInitial>O</middleInitial>
+    <lastName>Darrow</lastName>
+    <address>8407 Infinite Loop Drive</address>
+    <city>Las Vegas</city>
+    <state>WA</state>
+    <zipCode>90520</zipCode>
+  </customer>
+</customers>

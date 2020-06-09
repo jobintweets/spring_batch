@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class IWCustomer {
+
   private String firstName;
   private String middleInitial;
   private String lastName;
