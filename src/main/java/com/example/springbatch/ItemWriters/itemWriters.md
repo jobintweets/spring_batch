@@ -1,0 +1,1 @@
+Instead of parsing a String into an object as the LineMapper is responsible for doing, the LineAggregator is responsible for the generating of an output String based on an object.
