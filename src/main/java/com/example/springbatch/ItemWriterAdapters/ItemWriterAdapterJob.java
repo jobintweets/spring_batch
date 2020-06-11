@@ -8,7 +8,9 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.adapter.ItemWriterAdapter;
+import org.springframework.batch.item.adapter.PropertyExtractingDelegatingItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,19 +50,31 @@ public class ItemWriterAdapterJob {
 				.targetType(Customer.class)
 				.build();
 	}
+// passing the entire object to the service method
+//	@Bean
+//	public ItemWriterAdapter<Customer> itemWriter(customerSerivice cusService) {
+//		ItemWriterAdapter<Customer> customerItemWriterAdapter = new ItemWriterAdapter<>();
+//		customerItemWriterAdapter.setTargetObject(cusService);
+//		customerItemWriterAdapter.setTargetMethod("logCustomer");
+//		return customerItemWriterAdapter;
+//	}
 
-	@Bean
-	public ItemWriterAdapter<Customer> itemWriter(customerSerivice cusService) {
-		ItemWriterAdapter<Customer> customerItemWriterAdapter = new ItemWriterAdapter<>();
-		customerItemWriterAdapter.setTargetObject(cusService);
-		customerItemWriterAdapter.setTargetMethod("logCustomer");
-		return customerItemWriterAdapter;
+  //to pass just the selected parameters of the object
+  @Bean
+	public PropertyExtractingDelegatingItemWriter<Customer> itemWriter(customerSerivice cusService) {
+		PropertyExtractingDelegatingItemWriter<Customer> itemWriter =
+				new PropertyExtractingDelegatingItemWriter<>();
+		itemWriter.setTargetObject(cusService);
+		itemWriter.setTargetMethod("logCustomerAddress");
+		itemWriter.setFieldsUsedAsTargetMethodArguments(
+				new String[] {"address", "city", "state", "zipCode"});
+
+		return itemWriter;
 	}
-
 
 	@Bean
 	public Step formatStep() throws Exception {
-		return this.stepBuilderFactory.get("jpaFormatStep")
+		return this.stepBuilderFactory.get("ExtractingDelegatingItemWriter")
 				.<Customer, Customer>chunk(10)
 				.reader(customerFileReader(null))
 				.writer(itemWriter(null))
@@ -69,8 +83,9 @@ public class ItemWriterAdapterJob {
 
 	@Bean
 	public Job itemWriterAdapterFormatJob() throws Exception {
-		return this.jobBuilderFactory.get("itemWriterAdapterFormatJob")
+		return this.jobBuilderFactory.get("itemWriterJob")
 				.start(formatStep())
+      .incrementer(new RunIdIncrementer())
 				.build();
 	}
   public static void main(String[] args) {
