@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customers>
+  <customer>
+    <id>0</id>
+    <firstName>Michael</firstName>
+    <middleInitial>T</middleInitial>
+    <lastName>Minella</lastName>
+    <address>1222 Edward Road</address>
+    <city>Naperville</city>
+    <state>IL</state>
+    <zip>60540</zip>
+    <email>michael@michaelminella.com</email>
+  </customer>
+  <customer>
+    <id>0</id>
+    <firstName>Ann</firstName>
+    <middleInitial>A</middleInitial>
+    <lastName>Smith</lastName>
+    <address>2501 Mt. Lee Drive</address>
+    <city>Miami</city>
+    <state>NE</state>
+    <zip>62935</zip>
+    <email>ASmith@yahoo.com</email>
+  </customer>
+  <customer>
+    <id>0</id>
+    <firstName>Laura</firstName>
+    <middleInitial>B</middleInitial>
+    <lastName>Jobs</lastName>
+    <address>9542 Isabella Ave</address>
+    <city>Aurora</city>
+    <state>FL</state>
+    <zip>62344</zip>
+    <email>LJobs@yahoo.com</email>
+  </customer>
+  <customer>
+    <id>0</id>
+    <firstName>Harry</firstName>
+    <middleInitial>J</middleInitial>
+    <lastName>Williams</lastName>
+    <address>1909 4th Street</address>
+    <city>Seatle</city>
+    <state>TX</state>
+    <zip>48548</zip>
+    <email>HWilliams@hotmail.com</email>
+  </customer>
+  <customer>
+    <id>0</id>
+    <firstName>Larry</firstName>
+    <middleInitial>Y</middleInitial>
+    <lastName>Minella</lastName>
+    <address>7839 S. Greenwood Ave</address>
+    <city>Miami</city>
+    <state>IL</state>
+    <zip>65371</zip>
+    <email>LMinella@hotmail.com</email>
+  </customer>
+  <customer>
+    <id>0</id>
+    <firstName>Richard</firstName>
+    <middleInitial>Q</middleInitial>
+    <lastName>Jobs</lastName>
+    <address>9732 4th Street</address>
+    <city>Chicago</city>
+    <state>NV</state>
+    <zip>31320</zip>
+    <email>RJobs@gmail.com</email>
+  </customer>
+  <customer>
+    <id>0</id>
+    <firstName>Ann</firstName>
+    <middleInitial>P</middleInitial>
+    <lastName>Darrow</lastName>
+    <address>4195 Jeopardy Lane</address>
+    <city>Aurora</city>
+    <state>CA</state>
+    <zip>24482</zip>
+    <email>ADarrow@hotmail.com</email>
+  </customer>
+  <customer>
+    <id>0</id>
+    <firstName>Larry</firstName>
+    <middleInitial>V</middleInitial>
+    <lastName>Williams</lastName>
+    <address>3075 Wall Street</address>
+    <city>St. Louis</city>
+    <state>NY</state>
+    <zip>34205</zip>
+    <email>LWilliams@hotmail.com</email>
+  </customer>
+  <customer>
+    <id>0</id>
+    <firstName>Michael</firstName>
+    <middleInitial>H</middleInitial>
+    <lastName>Gates</lastName>
+    <address>3219 S. Greenwood Ave</address>
+    <city>Boston</city>
+    <state>FL</state>
+    <zip>24692</zip>
+    <email>MGates@gmail.com</email>
+  </customer>
+  <customer>
+    <id>0</id>
+    <firstName>Harry</firstName>
+    <middleInitial>H</middleInitial>
+    <lastName>Johnson</lastName>
+    <address>7520 Infinite Loop Drive</address>
+    <city>Hollywood</city>
+    <state>MA</state>
+    <zip>83983</zip>
+    <email>HJohnson@hotmail.com</email>
+  </customer>
+  <customer>
+    <id>0</id>
+    <firstName>Harry</firstName>
+    <middleInitial>N</middleInitial>
+    <lastName>Ellison</lastName>
+    <address>6959 4th Street</address>
+    <city>Hollywood</city>
+    <state>MO</state>
+    <zip>70398</zip>
+    <email>HEllison@gmail.com</email>
+  </customer>
+</customers>
