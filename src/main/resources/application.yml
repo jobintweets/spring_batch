@@ -8,7 +8,7 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/spring_batch
     username: 'jobin'
-    password: 'turbodriveA1@'
+    password: ''
     initialization-mode: always
     continue-on-error: true
     platform: mysql
